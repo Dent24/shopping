@@ -1,0 +1,19 @@
+import { createApp } from 'vue'
+import { createWebHistory, createRouter } from 'vue-router'
+import { Button, Form, Field, CellGroup, Tag } from 'vant';
+import 'vant/lib/index.css';
+import main from './component/main.vue'
+import manage from './route/manage'
+import customer from './route/customer'
+
+const routes = [
+    ...manage,
+    ...customer
+]
+
+const router = createRouter({
+    history: createWebHistory(),
+    routes
+})
+
+createApp(main).use(router).use(Button).use(Form).use(Field).use(CellGroup).use(Tag).mount('#app')
