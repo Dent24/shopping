@@ -45,7 +45,8 @@ export default {
     methods: {
         login() {
             this.loading = true;
-            axios.post('login', this.value)
+            axios.post('/login', this.value)
+                .then(() => { this.$router.push({ name: 'manage' }) })
                 .catch((error) => {
                     this.error = error.response.data;
                 })

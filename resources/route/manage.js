@@ -14,7 +14,7 @@ export default [
             },
             {
                 path: 'login',
-                name: 'manage-login',
+                name: 'manage.login',
                 component: Login
             }
         ]
