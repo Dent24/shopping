@@ -1,5 +1,5 @@
 <template>
-    <div>Customer</div>
+    <v-container>Customer</v-container>
 </template>
 
 <script>

@@ -8,10 +8,6 @@ use Illuminate\Support\Facades\Validator;
  
 class LoginController extends Controller
 {
-    public function test() {
-        return [];
-    }
-
     public function login()
     {
         $rules = [
@@ -28,7 +24,7 @@ class LoginController extends Controller
             ]);
 
             if ($attempt) {
-                return back();
+                return redirect()->route('manage.home');
             }
 
             return response()->json('帳號或密碼錯誤', 422);
@@ -36,5 +32,10 @@ class LoginController extends Controller
 
         //fails
         return response()->json('帳號或密碼錯誤', 422);
+    }
+
+    public function logout() {
+        auth()->logout();
+        return route(request()->input('route'));
     }
 }

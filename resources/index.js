@@ -1,10 +1,22 @@
 import { createApp } from 'vue'
 import { createWebHistory, createRouter } from 'vue-router'
-import { Button, Form, Field, CellGroup, Tag } from 'vant';
-import 'vant/lib/index.css';
 import main from './component/main.vue'
 import manage from './route/manage'
 import customer from './route/customer'
+
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+import '@mdi/font/css/materialdesignicons.css'
+
+const vuetify = createVuetify({
+    components,
+    directives,
+    icons: {
+        defaultSet: 'mdi'
+    }
+})
 
 const routes = [
     ...manage,
@@ -16,4 +28,4 @@ const router = createRouter({
     routes
 })
 
-createApp(main).use(router).use(Button).use(Form).use(Field).use(CellGroup).use(Tag).mount('#app')
+createApp(main).use(router).use(vuetify).mount('#app')
