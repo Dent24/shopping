@@ -10,9 +10,10 @@ Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout']);
 
 Route::group(['prefix' => 'manage'], function () {
-    Route::view('/', 'home')->middleware('auth');
+    Route::view('/', 'home')->middleware('auth')->name('manage.home');
     Route::view('login', 'home')->middleware('guest')->name('manage.login');
 
+    Route::get('products', [ManageController::class, 'getProducts']);
     Route::post('product', [ManageController::class, 'createProduct']);
 });
 

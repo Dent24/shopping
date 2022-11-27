@@ -19835,11 +19835,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _product_createDialog_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./product/createDialog.vue */ "./resources/component/manage/product/createDialog.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _product_createDialog_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./product/createDialog.vue */ "./resources/component/manage/product/createDialog.vue");
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    createDialog: _product_createDialog_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    createDialog: _product_createDialog_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: function data() {
+    return {
+      products: [],
+      loading: true
+    };
+  },
+  created: function created() {
+    var _this = this;
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get('manage/products').then(function (response) {
+      _this.products = response.data.products;
+    })["finally"](function () {
+      _this.loading = false;
+    });
   }
 });
 
@@ -19901,9 +19918,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       name: 'manage'
                     });
                   })["catch"](function (error) {
-                    _this.error = error.response.data;
-                  })["finally"](function () {
                     _this.loading = false;
+                    _this.error = error.response.data;
                   });
                 }
               case 6:
@@ -20084,12 +20100,42 @@ __webpack_require__.r(__webpack_exports__);
 var _hoisted_1 = {
   "class": "d-flex justify-end"
 };
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "產品名稱"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "產品價格"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "上架狀況")])], -1 /* HOISTED */);
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_create_dialog = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("create-dialog");
+  var _component_v_table = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("v-table");
+  var _component_v_progress_circular = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("v-progress-circular");
+  var _component_v_overlay = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("v-overlay");
   var _component_v_container = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("v-container");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_v_container, null, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_create_dialog)])];
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_create_dialog)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_v_table, null, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.products, function (product) {
+            return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
+              key: product.id
+            }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(product.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(product.price), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(product.sellable ? '上架中' : '已下架'), 1 /* TEXT */)]);
+          }), 128 /* KEYED_FRAGMENT */))])];
+        }),
+
+        _: 1 /* STABLE */
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_v_overlay, {
+        modelValue: $data.loading,
+        "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+          return $data.loading = $event;
+        }),
+        "class": "align-center justify-center"
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_v_progress_circular, {
+            indeterminate: "",
+            color: "primary",
+            width: "5"
+          })];
+        }),
+        _: 1 /* STABLE */
+      }, 8 /* PROPS */, ["modelValue"])];
     }),
     _: 1 /* STABLE */
   });
@@ -20481,9 +20527,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ([{
   path: '/manage',
-  name: 'manage',
   children: [{
     path: '',
+    name: 'manage',
     component: _component_manage_home_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   }, {
     path: 'login',

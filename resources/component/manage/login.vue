@@ -49,9 +49,9 @@ export default {
                 axios.post('/login', this.value)
                     .then(() => { this.$router.push({ name: 'manage' }) })
                     .catch((error) => {
+                        this.loading = false;
                         this.error = error.response.data;
                     })
-                    .finally(() => { this.loading = false });
             }
         }
     }

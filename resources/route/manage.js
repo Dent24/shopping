@@ -4,10 +4,10 @@ import Login from '../component/manage/login.vue'
 export default [
     {
         path: '/manage',
-        name: 'manage',
         children: [
             {
                 path: '',
+                name: 'manage',
                 component: Home
             },
             {
