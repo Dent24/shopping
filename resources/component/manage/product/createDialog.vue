@@ -1,36 +1,34 @@
 <template>
-    <div>
-        <van-button plain @click="dialog = true">新增商品</van-button>
-        <van-dialog :show.sync="dialog" title="新增商品" show-cancel-button confirm-button-text="送出" cancel-button-text="取消" width="450" @confirm="submit" @cancel="dialog = false">
-            <van-form ref="form">
-                <van-cell-group inset>
-                    <van-field
-                        v-model="product.name"
-                        label="商品名稱"
-                        placeholder="商品名稱"
-                        :rules="[{ required: true, message: '必填' }]"
-                    />
-                    <van-field
-                        v-model="product.price"
-                        type="number"
-                        label="商品價格"
-                        placeholder="商品價格"
-                        :rules="[{ required: true, message: '必填' }]"
-                    />
-                    <van-field label="上架狀態">
-                        <template #input>
-                            <van-switch v-model="product.sellable" size="20" />
-                        </template>
-                    </van-field>
-                </van-cell-group>
-            </van-form>
-        </van-dialog>
-        <van-overlay :show="loading" z-index="2002">
-            <div class="wrapper">
-                <van-loading color="#1989FA" />
-            </div>
-        </van-overlay>
-    </div>
+    <v-dialog v-model="dialog" width="600">
+        <template v-slot:activator="{ props }">
+            <v-btn color="primary" v-bind="props">新增商品</v-btn>
+        </template>
+        <v-card>
+            <v-card-title>新增商品</v-card-title>
+            <v-card-text>
+                <v-form ref="form">
+                    <v-row>
+                        <v-col cols="4">
+                            <v-text-field v-model="product.name" label="商品名稱" :rules="[rules.required]" />
+                        </v-col>
+                        <v-col cols="4">
+                            <v-text-field v-model="product.price" label="商品價格" type="number" :rules="[rules.required]" />
+                        </v-col>
+                        <v-col cols="4">
+                            <v-switch v-model="product.sellable" label="上架狀態" color="primary" />
+                        </v-col>
+                    </v-row>
+                </v-form>
+            </v-card-text>
+            <v-card-actions class="justify-end">
+                <v-btn color="primary" @click="submit">送出</v-btn>
+                <v-btn @click="dialog = false" class="ml-3">取消</v-btn>
+            </v-card-actions>
+        </v-card>
+        <v-overlay v-model="loading" class="align-center justify-center">
+            <v-progress-circular indeterminate color="primary" width="5" />
+        </v-overlay>
+    </v-dialog>
 </template>
 
 <script>
@@ -43,6 +41,9 @@ export default {
             product: {
                 sellable: false
             },
+            rules: {
+                required: (v) => !!v || '必填'
+            },
             loading: false
         }
     },
@@ -52,9 +53,10 @@ export default {
         }
     },
     methods: {
-        submit() {
-            const validate = this.$refs.form.validate();
-            if (validate) {
+        async submit() {
+            const { valid } = await this.$refs.form.validate();
+
+            if (valid) {
                 this.loading = true;
                 axios.post('manage/product', this.product)
                     .then((response) => {
@@ -68,12 +70,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-.wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-}
-</style>

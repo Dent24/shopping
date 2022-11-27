@@ -1,10 +1,9 @@
 <template>
-    <div>
-        <van-row justify="space-between">
-            <div></div>
+    <v-container>
+        <div class="d-flex justify-end">
             <create-dialog />
-        </van-row>
-    </div>
+        </div>
+    </v-container>
 </template>
 
 <script>
