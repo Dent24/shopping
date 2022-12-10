@@ -24,7 +24,8 @@ class LoginController extends Controller
             ]);
 
             if ($attempt) {
-                return redirect()->route('manage.home');
+                $role = auth()->user()->roles()->first();
+                return redirect()->route($role->name . '.home');
             }
 
             return response()->json('帳號或密碼錯誤', 422);
