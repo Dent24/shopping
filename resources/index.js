@@ -3,6 +3,7 @@ import { createWebHistory, createRouter } from 'vue-router'
 import main from './component/main.vue'
 import manage from './route/manage'
 import customer from './route/customer'
+import Login from './component/Login.vue'
 
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
@@ -20,7 +21,12 @@ const vuetify = createVuetify({
 
 const routes = [
     ...manage,
-    ...customer
+    ...customer,
+    {
+        path: '/login',
+        name: 'login',
+        component: Login
+    }
 ]
 
 const router = createRouter({

@@ -36,6 +36,6 @@ class LoginController extends Controller
 
     public function logout() {
         auth()->logout();
-        return route(request()->input('route'));
+        return;
     }
 }

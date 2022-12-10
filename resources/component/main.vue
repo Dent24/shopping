@@ -15,8 +15,8 @@ import axios from 'axios'
 export default {
     methods: {
         logout() {
-            axios.post('/logout', { route: 'manage.login' })
-                .then(() => { this.$router.push({ name: 'manage.login' }) });
+            axios.post('/logout')
+                .then(() => { this.$router.go() });
         }
     }
 }
