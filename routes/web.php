@@ -14,7 +14,8 @@ Route::group(['prefix' => 'manage'], function () {
     Route::view('login', 'home')->middleware('guest')->name('manage.login');
 
     Route::get('products', [ManageController::class, 'getProducts']);
-    Route::post('product', [ManageController::class, 'createProduct']);
+    Route::post('product', [ManageController::class, 'updateOrCreateProduct']);
+    Route::delete('product/{id}', [ManageController::class, 'deleteProduct']);
 });
 
 Route::group(['prefix' => 'customer'], function () {

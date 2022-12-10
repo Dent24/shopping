@@ -15,3 +15,5 @@ mix.js('resources/index.js', 'public/js').vue()
     .postCss('resources/css/app.css', 'public/css', [
         //
     ]);
+
+mix.browserSync('127.0.0.1:8000');
