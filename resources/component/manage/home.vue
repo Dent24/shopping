@@ -32,14 +32,12 @@
                 </tr>
             </tbody>
         </v-table>
-        <v-overlay v-model="loading" class="align-center justify-center">
-            <v-progress-circular indeterminate color="primary" width="5" />
-        </v-overlay>
     </v-container>
 </template>
 
 <script>
 import axios from 'axios'
+import { mapActions } from 'vuex'
 import editDialog from './product/editDialog.vue'
 import deleteDialog from './product/deleteDialog.vue'
 
@@ -50,16 +48,19 @@ export default {
     },
     data() {
         return {
-            products: [],
-            loading: true
+            products: []
         }
     },
     created() {
+        this.setLoading(true);
         axios.get('manage/products')
             .then((response) => { this.products = response.data.products })
-            .finally(() => { this.loading = false });
+            .finally(() => { this.setLoading(false) });
     },
     methods: {
+        ...mapActions([
+            'setLoading'
+        ]),
         edited(product, origin = null ) {
             if (!!origin) {
                 origin = _.merge(origin, product);

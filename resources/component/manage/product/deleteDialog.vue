@@ -13,14 +13,12 @@
                 <v-btn @click="dialog = false" class="ml-3">取消</v-btn>
             </v-card-actions>
         </v-card>
-        <v-overlay v-model="loading" class="align-center justify-center">
-            <v-progress-circular indeterminate color="primary" width="5" />
-        </v-overlay>
     </v-dialog>
 </template>
 
 <script>
 import axios from 'axios'
+import { mapActions } from 'vuex'
 
 export default {
     props: {
@@ -32,12 +30,15 @@ export default {
     },
     data() {
         return {
-            dialog: false,
-            loading: false
+            dialog: false
         }
     },
     methods: {
+        ...mapActions([
+            'setLoading'
+        ]),
         async submit() {
+            this.setLoading(true);
             axios.delete('manage/product/' + this.product.id)
                 .then((response) => {
                     if (!!response.data.deleted) {
@@ -45,7 +46,7 @@ export default {
                         this.dialog = false;
                     }
                 })
-                .finally(() => { this.loading = false });
+                .finally(() => { this.setLoading(false) });
         }
     }
 }

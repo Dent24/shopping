@@ -25,15 +25,13 @@
                 <v-btn @click="dialog = false" class="ml-3">取消</v-btn>
             </v-card-actions>
         </v-card>
-        <v-overlay v-model="loading" class="align-center justify-center">
-            <v-progress-circular indeterminate color="primary" width="5" />
-        </v-overlay>
     </v-dialog>
 </template>
 
 <script>
 import axios from 'axios'
 import _ from 'lodash'
+import { mapActions } from 'vuex'
 
 export default {
     props: {
@@ -51,8 +49,7 @@ export default {
             },
             rules: {
                 required: (v) => !!v || '必填'
-            },
-            loading: false
+            }
         }
     },
     watch: {
@@ -61,11 +58,14 @@ export default {
         }
     },
     methods: {
+        ...mapActions([
+            'setLoading'
+        ]),
         async submit() {
             const { valid } = await this.$refs.form.validate();
 
             if (valid) {
-                this.loading = true;
+                this.setLoading(true);
                 axios.post('manage/product', this.value)
                     .then((response) => {
                         if (!!response.data.product) {
@@ -73,7 +73,7 @@ export default {
                             this.dialog = false;
                         }
                     })
-                    .finally(() => { this.loading = false });
+                    .finally(() => { this.setLoading(false) });
             }
         }
     }

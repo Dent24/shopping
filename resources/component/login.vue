@@ -16,14 +16,12 @@
                 </v-col>
             </v-row>
         </v-form>
-        <v-overlay v-model="loading" class="align-center justify-center">
-            <v-progress-circular indeterminate color="primary" width="5" />
-        </v-overlay>
     </v-container>
 </template>
 
 <script>
 import axios from 'axios'
+import { mapActions } from 'vuex'
 
 export default {
     data() {
@@ -32,7 +30,6 @@ export default {
                 email: '',
                 password: ''
             },
-            loading: false,
             error: '',
             rules: {
                 required: (v) => !!v || '必填'
@@ -40,18 +37,23 @@ export default {
         }
     },
     methods: {
+        ...mapActions([
+            'setLoading'
+        ]),
         async login() {
             this.error = '';
             const { valid } = await this.$refs.form.validate();
 
             if (valid) {
-                this.loading = true;
+                this.setLoading(true);
                 axios.post('/login', this.value)
-                    .then(() => { this.$router.go() })
-                    .catch((error) => {
-                        this.loading = false;
-                        this.error = error.response.data;
+                    .then(() => {
+                        this.$router.go();
                     })
+                    .catch((error) => {
+                        this.setLoading(false);
+                        this.error = error.response.data;
+                    });
             }
         }
     }

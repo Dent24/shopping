@@ -11,6 +11,13 @@
         <main></main>
     </div>
 
+    <script>
+        @if(auth()->check())
+        var login = true;
+        @else
+        var login = false;
+        @endif
+    </script>
     <script type="" src="/js/index.js"></script>
 </body>
 </html>
