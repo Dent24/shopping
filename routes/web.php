@@ -11,6 +11,9 @@ Route::view('login', 'home')->middleware('guest')->name('login');
 Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout']);
 
+Route::view('register', 'home')->middleware('guest')->name('register');
+Route::post('register', [LoginController::class, 'register']);
+
 Route::group(['prefix' => 'manage'], function () {
     Route::view('/', 'home')->middleware('auth')->name('manage.home');
 

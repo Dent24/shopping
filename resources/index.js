@@ -3,7 +3,8 @@ import { createWebHistory, createRouter } from 'vue-router'
 import main from './component/main.vue'
 import manage from './route/manage'
 import customer from './route/customer'
-import Login from './component/Login.vue'
+import Login from './component/login.vue'
+import Register from './component/register.vue'
 
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
@@ -28,6 +29,11 @@ const routes = [
         path: '/login',
         name: 'login',
         component: Login
+    },
+    {
+        path: '/register',
+        name: 'register',
+        component: Register
     }
 ]
 

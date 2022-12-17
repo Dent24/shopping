@@ -6,7 +6,7 @@
                     <v-text-field v-model="value.email" label="Email" prepend-icon="mdi-account" :rules="[rules.required]" />
                 </v-col>
                 <v-col cols="12">
-                    <v-text-field v-model="value.password" label="Password" prepend-icon="mdi-lock" :rules="[rules.required]" />
+                    <v-text-field type="password" v-model="value.password" label="Password" prepend-icon="mdi-lock" :rules="[rules.required]" />
                 </v-col>
                 <v-col cols="12" v-if="!!error">
                     <v-alert type="error" variant="outlined">{{ error }}</v-alert>
