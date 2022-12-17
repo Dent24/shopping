@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ManageController;
 use Illuminate\Support\Facades\Route;
@@ -19,5 +20,7 @@ Route::group(['prefix' => 'manage'], function () {
 });
 
 Route::group(['prefix' => 'customer'], function () {
-    Route::view('/', 'home');
+    Route::view('/', 'home')->name('customer.home');
+
+    Route::get('products', [CustomerController::class, 'getProducts']);
 });

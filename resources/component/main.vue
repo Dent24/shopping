@@ -23,7 +23,7 @@ export default {
             loading: 'getLoading'
         })
     },
-    mounted() {
+    created() {
         this.setIsLogin(window.login);
     },
     methods: {
