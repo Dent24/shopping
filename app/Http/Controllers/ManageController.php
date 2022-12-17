@@ -12,10 +12,18 @@ class ManageController extends Controller
         return ['products' => Product::all()];
     }
 
-    public function createProduct()
+    public function updateOrCreateProduct()
     {
-        $product = Product::create(request()->only(['name', 'price', 'sellable']));
+        $product = Product::updateOrCreate(['id' => request()->input('id')], request()->only(['name', 'price', 'sellable']));
 
         return ['product' => $product];
+    }
+
+    public function deleteProduct($product)
+    {
+        $product = Product::find($product);
+        $deleted = $product->delete();
+
+        return ['deleted' => $deleted];
     }
 }
