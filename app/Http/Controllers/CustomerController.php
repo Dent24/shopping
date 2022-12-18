@@ -4,15 +4,22 @@ namespace App\Http\Controllers;
  
 use App\Http\Controllers\Controller;
 use App\Models\Detail;
+use App\Models\Order;
 use App\Models\Product;
 
 class CustomerController extends Controller
 {
     public function getProducts()
     {
+        $order = null;
+
+        if (auth()->check()) {
+            $order = auth()->user()->orders()->where('send', false)->with('details.product')->first();
+        }
+
         return [
             'products' => Product::where('sellable', true)->get(),
-            'order' => auth()->user()->orders()->where('send', false)->first()->load('details.product')
+            'order' => $order,
         ];
     }
 
@@ -36,5 +43,21 @@ class CustomerController extends Controller
         }
 
         return ['order' => auth()->user()->refresh()->orders()->where('send', false)->first()->load('details.product')];
+    }
+
+    public function removeDeatail(Detail $detail)
+    {
+        $detail->delete();
+        return ['order' => auth()->user()->refresh()->orders()->where('send', false)->first()->load('details.product')];
+    }
+
+    public function sendOrder(Order $order)
+    {
+        return ['updated' => $order->update(['send' => true])];
+    }
+
+    public function deleteOrder(Order $order)
+    {
+        return ['deleted' => $order->delete()];
     }
 }

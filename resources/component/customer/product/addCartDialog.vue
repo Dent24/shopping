@@ -57,7 +57,7 @@ export default {
         ]),
         async submit() {
             this.setLoading(true);
-            axios.post('customer/add/' + this.product.id, { quantity: this.quantity })
+            axios.post('customer/product/' + this.product.id, { quantity: this.quantity })
                 .then((response) => {
                     this.$emit('update:order', response.data.order);
                     this.dialog = false;

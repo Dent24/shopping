@@ -26,5 +26,8 @@ Route::group(['prefix' => 'customer'], function () {
     Route::view('/', 'home')->name('customer.home');
 
     Route::get('products', [CustomerController::class, 'getProducts']);
-    Route::post('add/{product}', [CustomerController::class, 'addCart']);
+    Route::post('product/{product}', [CustomerController::class, 'addCart']);
+    Route::delete('detail/{detail}', [CustomerController::class, 'removeDeatail']);
+    Route::put('order/{order}', [CustomerController::class, 'sendOrder']);
+    Route::delete('order/{order}', [CustomerController::class, 'deleteOrder']);
 });
