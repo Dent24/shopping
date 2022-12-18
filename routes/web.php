@@ -26,4 +26,5 @@ Route::group(['prefix' => 'customer'], function () {
     Route::view('/', 'home')->name('customer.home');
 
     Route::get('products', [CustomerController::class, 'getProducts']);
+    Route::post('add/{product}', [CustomerController::class, 'addCart']);
 });
